@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
-import { Observable, catchError, from, map, of, switchMap } from 'rxjs';
-import { User } from '../interfaces/user';
+import { Observable, catchError, from, map, of, switchMap, throwError } from 'rxjs';
+import { User, UserLogin } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +40,19 @@ export class AuthService {
       );
   }
 
-  register(user: User): Observable<void> {
-    return this.#http.post<void>('auth/register', user);
+  register(data: UserLogin): Observable<UserLogin> {
+    console.log("Datos enviados al servidor:", data);
+  
+    return this.#http.post<UserLogin>('auth/register', data).pipe(
+      map(response => {
+        console.log("Registro exitoso", response);
+        return response;
+      }),
+      catchError(error => {
+        // En lugar de simplemente imprimir el error y retornar null, propagamos el error
+        return throwError(() => error);
+      })
+    );
   }
 
   async logout(): Promise<void> {
@@ -75,7 +86,7 @@ export class AuthService {
 
   getProfile(): Observable<User> {
     return this.#http
-      .get<{ user: User }>('auth/profile')
+      .get<{ user: User }>('users/me')
       .pipe(map((r) => r.user));
   }
 }

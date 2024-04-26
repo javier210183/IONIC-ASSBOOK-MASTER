@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { logoutActivateGuard } from "../guards/logout-activate.guard";
+import { loginActivateGuard } from "src/app/guards/login-activate.guard";
 
 export const authRoutes: Routes = [
   {
@@ -10,12 +10,5 @@ export const authRoutes: Routes = [
     path: 'register',
     loadComponent: () => 
         import('./register/register.page').then(m => m.RegisterPage),
-  },
-  {
-    path: 'add',
-    loadComponent: () =>
-      import('src/app/post/posts-form/posts-form.page').then(
-        (m) => m.PostsFormPage
-      ),
   },
 ];
