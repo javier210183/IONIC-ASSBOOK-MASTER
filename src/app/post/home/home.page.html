@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Posts List</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- @for (prod of posts; track prod.id) { -->
+<!-- <ion-card>
+  <img [src]="prod.image" />
+  <ion-card-header>
+    <ion-card-title
+      >@if(!prod.title) { {{prod.description}} }@else {
+      {{prod.title}}}</ion-card-title
+    >
+    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row class="cardffoter">
+        Here's a small text description for the card content. Nothing more,
+        nothing less.
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card> -->
+<!-- } -->
+<ion-content [fullscreen]="true">
+  <ion-refresher #refresher slot="fixed" (ionRefresh)="reloadPosts(refresher)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" [routerLink]="['/posts/add']" [routerDirection]="'root'">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list style="padding-bottom: 50px">
+    @for (prod of posts; track prod.id) {
+      <ion-card>
+        <img alt="usuario sin imagen" [src]="prod.image" />
+        <ion-card-header>
+          <ion-card-title>{{ prod.title }}</ion-card-title>
+          <ion-card-subtitle>{{ prod.description }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="6">
+            <!-- Botón para editar con ícono -->
+            <ion-button expand="block" color="secondary">
+              <ion-icon name="skull" slot="start"></ion-icon>
+              Edit
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <!-- Botón para más información con ícono -->
+            <ion-button expand="block" color="success">
+              <ion-icon name="eye" slot="start"></ion-icon>
+              More Info
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-grid>
+          <ion-col size="7">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+              <ion-img [src]="prod.creator?.avatar"></ion-img>>
+            </ion-avatar>
+            <ion-label>
+              <p>{{prod.creator?.name}}</p>
+              <small>{{prod.date //| date : "MM/dd/yyy hh:mm a"//}}</small>
+            </ion-label>
+            <ion-row>
+              <ion-col size="12">
+                <!-- Alineación a la derecha dentro del contenedor -->
+                <div style="text-align: right;">
+                  <ion-icon name="thumbs-up" style="font-size: 40px;margin-right: 10px;"></ion-icon>
+                  <span>{{ prod.totalLikes }}</span> <!-- Muestra el total de likes -->
+                  <ion-icon name="thumbs-down" style="font-size: 40px;margin-right: 110px;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+            </ion-item>
+          </ion-col>
+
+        </ion-grid>
+       
+      </ion-card>
+      
+      }
+  </ion-list>
+</ion-content>

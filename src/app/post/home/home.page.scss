@@ -1,0 +1,6 @@
+ion-card img {
+    width: 100%; /* Ocupa el ancho de la tarjeta */
+    height: auto; /* Mantiene la relación de aspecto */
+    object-fit: cover; /* Cubre el espacio disponible sin distorsionar */
+  }
+  
