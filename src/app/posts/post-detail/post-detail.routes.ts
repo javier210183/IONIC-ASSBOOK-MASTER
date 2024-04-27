@@ -12,7 +12,7 @@ export const postDetailRoutes: Routes = [
     path: 'comments',
     loadComponent: () =>
       import('./post-comments/post-comments.page').then(
-        (m) => m.postCommentsPage
+        (m) => m.PostCommentsPage
       ),
   },
   {
