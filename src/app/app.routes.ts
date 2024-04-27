@@ -20,4 +20,21 @@ export const routes: Routes = [
       import('src/app/post/post.routes').then((m) => m.postsRoutes),
     canActivate: [loginActivateGuard]//en las rutas se incorporan los guardianes
   },
+  {
+    path: 'post-detail',
+    loadComponent: () => import('./posts/post-detail/post-detail.page').then( m => m.postDetailPage)
+  },
+  {
+    path: 'post-info',
+    loadComponent: () => import('./posts/post-detail/post-info/post-info.page').then( m => m.PostInfoPage)
+  },
+  {
+    path: 'post-comments',
+    loadComponent: () => import('./posts/post-detail/post-comments/post-comments.page').then( m => m.PostCommentsPage)
+  },
+  {
+    path: 'post-comments',
+    loadComponent: () => import('./posts/post-detail/post-comments/post-comments.page').then( m => m.PostCommentsPage)
+  },
+  
 ];

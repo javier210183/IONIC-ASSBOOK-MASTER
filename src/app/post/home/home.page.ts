@@ -18,11 +18,12 @@ logout() {
 throw new Error('Method not implemented.');
 }
   posts: Publicaciones[] = [];
+  
 
   #postsService = inject(PostsService);
   #navController = inject(NavController);
   #actionSheetCtrl =inject(ActionSheetController);
-title: any;
+  title: any;
 
 
 ionViewWillEnter() {
@@ -31,6 +32,7 @@ ionViewWillEnter() {
     .subscribe((prods) => {
       console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxPosts loaded:OBJETO--PRODS---', prods);  // Verificar los datos cargados
       this.posts = prods;
+      console.log('this.posts después de la asignación:', this.posts);
     });
 }
 
@@ -90,5 +92,10 @@ ionViewWillEnter() {
       }
     });
   }
-  
+  // En tu componente HomePage
+
+mostrarDetallesPost(postId: number) {
+  this.#navController.navigateForward(['/post', postId]);
+}
+
 }

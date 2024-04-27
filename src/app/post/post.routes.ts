@@ -10,7 +10,16 @@ export const postsRoutes: Routes = [
     path: 'add',
     loadComponent: () =>
       import('./posts-form/posts-form.page').then(
-        (m) => m.PostsFormPage
+        (m) => m.PostFormPage
       ),
+  },
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('src/app/posts/post-detail/post-detail.page').then(
+        (m) => m.postDetailPage
+      ),
+    loadChildren: () => // Child (inner) routes
+      import('src/app/posts/post-detail/post-detail.routes').then((m) => m.postDetailRoutes),
   },
 ];

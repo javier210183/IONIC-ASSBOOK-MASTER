@@ -3,7 +3,7 @@ import { Component, effect, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Platform, IonApp, IonSplitPane, IonMenu, IonContent, IonList, IonListHeader, IonNote, IonMenuToggle, IonItem, IonIcon, IonLabel, IonRouterOutlet, IonAvatar, IonImg, IonRouterLink,NavController,} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { home, logIn, documentText, checkmarkCircle, images, camera, arrowUndoCircle, add, eye, menu, trash, close, skull, thumbsDown, thumbsUp, exit } from 'ionicons/icons';
+import { home, logIn, documentText, checkmarkCircle, images, camera, arrowUndoCircle, add, eye, menu, trash, close, skull, thumbsDown, thumbsUp, exit, informationCircle, chatboxEllipses } from 'ionicons/icons';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/auth/interfaces/user';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -23,7 +23,7 @@ export class AppComponent {
   #authService = inject(AuthService);
   #platform = inject(Platform);
 
-  public appPages = [{ title: 'Home', url: '/post', icon: 'home' }];
+  public appPages = [{ title: 'Home', url: '/post', icon: 'home' },{ title: 'Add post', url: '/post/add', icon: 'add' },];
   constructor() {
     //AQUI LOS ICONOS QUE VAYAMOS UTILIZANDO
     addIcons({ 
@@ -42,7 +42,9 @@ export class AppComponent {
          skull,
          thumbsDown,
          thumbsUp,
-         exit
+         exit,
+         informationCircle ,
+          chatboxEllipses 
      });
 
     effect(() => {

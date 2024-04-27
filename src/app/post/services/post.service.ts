@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
       import { Injectable, inject } from '@angular/core';
       import { Observable, map } from 'rxjs';
       import { Post, Publicaciones } from 'src/app/auth/interfaces/post';
-      import { Comment } from 'src/app/auth/interfaces/commen';
+      import { Comment } from 'src/app/auth/interfaces/comment';
 import { PostsResponse, SinglePostResponse } from 'src/app/auth/interfaces/responses';
 
       @Injectable({
@@ -47,7 +47,7 @@ import { PostsResponse, SinglePostResponse } from 'src/app/auth/interfaces/respo
         }
         addComment(idProd: number, comment: string): Observable<Comment> {
           return this.#http
-            .post<{ comment: Comment }>(`post/${idProd}/comments`, {
+            .post<{ comment: Comment }>(`posts/${idProd}/comments`, {
               text: comment,
             })
             .pipe(map((resp) => resp.comment));

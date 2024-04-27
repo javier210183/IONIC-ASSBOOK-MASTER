@@ -1,7 +1,10 @@
 import { User } from './user';
 
 export interface Post {
-  imageUrl: string;
+imageUrl: any;
+price: string|number;
+creator?: any;
+  
   totalLikes: any;
   id?: number;
   title?: string;

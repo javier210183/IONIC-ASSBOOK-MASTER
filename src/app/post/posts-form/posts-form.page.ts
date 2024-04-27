@@ -53,24 +53,25 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
     IonLabel,
   ],
 })
-export class PostsFormPage {
+export class PostFormPage {
   newProd: Post = {
-      description: '',
-
-      image: '',
-      totalLikes: undefined,
-      mood: 0,
-      likes: null,
-      imageUrl: ''
+    description: '',
+    title: '',
+    image: '',
+    totalLikes: undefined,
+    mood: 0,
+    likes: null,
+    imageUrl: undefined,
+    price: ''
   };
 
-  #postsService = inject(PostsService);
+  #postService = inject(PostsService);
   #toastCtrl = inject(ToastController);
   #nav = inject(NavController);
-    #PostService: any;
+    
 
   addPost() {
-    this.#PostService.addPost(this.newProd).subscribe(
+    this.#postService.addPost(this.newProd).subscribe(
       async () => {
         (
           await this.#toastCtrl.create({
@@ -80,7 +81,7 @@ export class PostsFormPage {
             color: 'success',
           })
         ).present();
-        this.#nav.navigateRoot(['/posts']);
+        this.#nav.navigateRoot(['/post']);
       },
       async () =>
         (
@@ -103,7 +104,7 @@ export class PostsFormPage {
       resultType: CameraResultType.DataUrl, // Base64 (url encoded)
     });
 
-    this.newProd.imageUrl = photo.dataUrl as string;
+    this.newProd.image = photo.dataUrl as string;
   }
 
   async pickFromGallery() {
@@ -115,6 +116,6 @@ export class PostsFormPage {
       resultType: CameraResultType.DataUrl, // Base64 (url encoded)
     });
 
-    this.newProd.imageUrl = photo.dataUrl as string;
+    this.newProd.image = photo.dataUrl as string;
   }
 }
