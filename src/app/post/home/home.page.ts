@@ -51,7 +51,7 @@ ionViewWillEnter() {
         
   }
   redirectToEdit(prod: Publicaciones) {
-    this.#navController.navigateForward(['/profile', prod.id]);
+    this.#navController.navigateForward(['/profile', prod.creator?.id]);
   }
   
   

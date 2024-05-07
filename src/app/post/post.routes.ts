@@ -24,7 +24,7 @@ export const postsRoutes: Routes = [
   {
     path: 'profile/:id',
     loadComponent: () =>
-       import('src/app/posts/post-profile/post-profile.page').then(m => m.PostProfilePage),
+       import('src/app/post/profile/post-profile.page').then(m => m.PostProfilePage),
   }
   
   
