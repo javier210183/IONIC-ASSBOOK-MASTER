@@ -1,32 +1,33 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 
 export const postsRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./home/home.page').then(m => m.HomePage),
+    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
   },
   {
     path: 'add',
     loadComponent: () =>
-      import('./posts-form/posts-form.page').then(
-        (m) => m.PostFormPage
-      ),
+      import('./posts-form/posts-form.page').then((m) => m.PostFormPage),
   },
   {
     path: ':id',
     loadComponent: () =>
-      import('src/app/posts/post-detail/post-detail.page').then( (m) => m.postDetailPage
+      import('src/app/posts/post-detail/post-detail.page').then(
+        (m) => m.postDetailPage
       ),
-    loadChildren: () => // Child (inner) routes
-      import('src/app/posts/post-detail/post-detail.routes').then((m) => m.postDetailRoutes),
+    loadChildren: () =>
+      // Child (inner) routes
+      import('src/app/posts/post-detail/post-detail.routes').then(
+        (m) => m.postDetailRoutes
+      ),
   },
   {
     path: 'profile/:id',
     loadComponent: () =>
-       import('src/app/post/profile/post-profile.page').then(m => m.PostProfilePage),
-  }
-  
-  
-  
+      import('src/app/profile/post-profile.page').then(
+        (m) => m.PostProfilePage
+      ),
+  },
 ];

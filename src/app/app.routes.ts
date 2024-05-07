@@ -21,9 +21,9 @@ export const routes: Routes = [
     canActivate: [loginActivateGuard], //en las rutas se incorporan los guardianes
   },
   {
-    path: 'users',
+    path: 'profile',
     loadChildren: () =>
-      import('src/app/post/profile/profile.routes').then((m) => m.profileRoutes),
+      import('src/app/profile/profile.routes').then((m) => m.profileRoutes),
     canActivate: [loginActivateGuard], //en las rutas se incorporan los guardianes
   },
 ];
