@@ -46,38 +46,17 @@ ionViewWillEnter() {
   }
 
   async showOptions(prod: Publicaciones) {
-    const actSheet = await this.#actionSheetCtrl.create({
-      header: prod.description,
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'destructive',
-          icon: 'trash',
-          handler: () => {
-            this.#postsService
-              .deletePost(prod.id!)
-              .subscribe(() =>
-                this.posts.splice(this.posts.indexOf(prod), 1)
-              );
-          },
-        },
-        {
-          text: 'See details',
-          icon: 'eye',
-          handler: () => {
+    
             this.#navController.navigateForward(['/post', prod.id]); 
-          },
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-        },
-      ],
-    });
-
-    actSheet.present();
+        
   }
+  redirectToEdit(prod: Publicaciones) {
+    this.#navController.navigateForward(['/profile', prod.id]);
+  }
+  
+  
+  
+  
   handleVote(postId: number, isLike: boolean): void {
     this.#postsService.addVote(postId, isLike).subscribe({
       next: (resp) => {

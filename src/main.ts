@@ -18,8 +18,12 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules),withComponentInputBinding()),
-    //withRouterConfig({paramsInheritanceStrategy: 'always'}),
+    provideRouter(
+      routes,
+       withPreloading(PreloadAllModules),
+       withComponentInputBinding(),
+    withRouterConfig({paramsInheritanceStrategy: 'always'})
+  ),
     provideHttpClient(
       withInterceptors([baseUrlInterceptor, authTokenInterceptor])),
   ],

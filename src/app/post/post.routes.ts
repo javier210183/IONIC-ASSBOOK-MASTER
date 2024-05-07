@@ -16,10 +16,17 @@ export const postsRoutes: Routes = [
   {
     path: ':id',
     loadComponent: () =>
-      import('src/app/posts/post-detail/post-detail.page').then(
-        (m) => m.postDetailPage
+      import('src/app/posts/post-detail/post-detail.page').then( (m) => m.postDetailPage
       ),
     loadChildren: () => // Child (inner) routes
       import('src/app/posts/post-detail/post-detail.routes').then((m) => m.postDetailRoutes),
   },
+  {
+    path: 'profile/:id',
+    loadComponent: () =>
+       import('src/app/posts/post-profile/post-profile.page').then(m => m.PostProfilePage),
+  }
+  
+  
+  
 ];

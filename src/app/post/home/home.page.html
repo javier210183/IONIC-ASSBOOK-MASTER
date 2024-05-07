@@ -32,14 +32,14 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="secondary" [routerLink]="['/posts/add']" [routerDirection]="'root'">
+    <ion-fab-button color="secondary" [routerLink]="['/post/add']" [routerDirection]="'root'">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-list style="padding-bottom: 50px">
     @for (prod of posts; track prod.id) {
       <ion-card>
-        <img alt="usuario sin imagen" [src]="prod.image" />
+        <img alt="usuario sin imagen" [src]="prod.image" (click)="showOptions(prod)"/>
         <ion-card-header>
           <ion-card-title>{{ prod.title }}</ion-card-title>
           <ion-card-subtitle>{{ prod.description }}</ion-card-subtitle>
@@ -47,7 +47,7 @@
         <ion-row>
           <ion-col size="6">
             <!-- Botón para editar con ícono -->
-            <ion-button expand="block" color="secondary">
+            <ion-button expand="block" color="secondary" (click)="redirectToEdit(prod)">
               <ion-icon name="skull" slot="start"></ion-icon>
               Edit
             </ion-button>
