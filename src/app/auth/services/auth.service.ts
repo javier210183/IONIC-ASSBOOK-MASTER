@@ -82,11 +82,28 @@ export class AuthService {
       catchError(() => of(false)) // No value in Preferences
     );
   }
+// Actualizar el avatar del usuario
+updateAvatar(data: {  avatar: string}): Observable<any> {
+  //const formData = new FormData();
+  //formData.append('avatar', file);
+  console.log("VOY A ENVIAR EL AVATA :", data);
 
+  return this.#http.put('users/me/avatar', data);
+}
+    
+updateProfile(data: { name: string; email: string }): Observable<UserLogin> {
+  
+  return this.#http.put<UserLogin>('users/me', data);
+}
 
   getProfile(): Observable<User> {
     return this.#http
       .get<{ user: User }>('users/me')
       .pipe(map((r) => r.user));
   }
+  changePassword(data: {  password: string }): Observable<any> {
+    console.log("VOY A ENVIAR EL DATA :",data);
+    return this.#http.put('users/me/password', data);
+  }
+  
 }

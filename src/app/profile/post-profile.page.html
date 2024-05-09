@@ -1,24 +1,69 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="posts"></ion-back-button>
-    </ion-buttons>
-    @if (post()) {
-    <ion-title>{{post()!.description}}</ion-title>
-    }
-  </ion-toolbar>
-</ion-header>
-ESTASSSSSSSSSSSSSSSSSSSSSSSSSSS EEEEEEEEEENNNNNNNNNNNNNNNNNN
-ELLLLLLLLLLLLLLLLLLLLLLLL PROFILEPROFILE
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="info">
-      <ion-icon name="information-circle"></ion-icon>
-      <ion-label>ESTO</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="comments">
-      <ion-icon name="chatbox-ellipses"></ion-icon>
-      <ion-label>SOBRA</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3">
+        <ion-avatar>
+          <img [src]="avatarUrl" alt="Profile Avatar" />
+        </ion-avatar>
+        <ion-button fill="clear" (click)="fileInput.click()">
+          <ion-icon name="image" slot="icon-only"></ion-icon>
+          <input type="file" #fileInput class="ion-hide" (change)="changeAvatar($event)" />
+        </ion-button>
+      </ion-col>
+      
+      <ion-col size="9">
+        <ion-text>
+          <h4>{{ name }}</h4>
+          <h4><small>{{ email }}</small></h4>
+        </ion-text>
+        <ion-button color="primary" (click)="showEditProfileForm = true">
+          <ion-icon name="pencil" slot="start"></ion-icon>
+          Edit profile
+        </ion-button>
+        <ion-button color="success" (click)="showEditPasswordForm = true">
+          <ion-icon name="lock-closed" slot="start"></ion-icon>
+          Edit password
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- Formulario de Edición de Perfil -->
+    <ion-row ngIf="showEditProfileForm">
+      <ion-col size="9">
+        <form (ngSubmit)="updateUserProfile()">
+          <ion-item>
+            <ion-label position="floating">Email:</ion-label>
+            <ion-input type="email" [(ngModel)]="updatedEmail" name="email" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Name:</ion-label>
+            <ion-input type="text" [(ngModel)]="updatedName" name="name" required></ion-input>
+          </ion-item>
+          <ion-button type="submit" expand="block" color="primary">Save changes</ion-button>
+          <ion-button type="button" expand="block" color="danger" (click)="showEditProfileForm = false">Cancel</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <!-- Formulario de Cambio de Contraseña -->
+    <ion-row ngIf="showEditPasswordForm">
+      <ion-col size="9">
+        <form (ngSubmit)="changeUserPassword()">
+          <ion-item>
+            <ion-label position="floating">New Password:</ion-label>
+            <ion-input type="password" [(ngModel)]="newPassword" name="newPassword" required></ion-input>
+          </ion-item>
+          <ion-button type="submit" expand="block" color="primary">Change password</ion-button>
+          <ion-button type="button" expand="block" color="danger" (click)="showEditPasswordForm = false">Cancel</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+    
+    <!-- Aquí inserta tu componente de mapa si es un web component o ajusta según sea necesario
+    <ion-row>
+      <ion-col>
+        <bm-map [coords]="coordinates"></bm-map>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> -->
