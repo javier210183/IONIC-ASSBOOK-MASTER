@@ -50,6 +50,7 @@ export class AppComponent {
     effect(() => {
       if (this.#authService.logged()) {
         this.#authService.getProfile().subscribe((user) => (this.user = user));
+        console.log("ESTE ES TU USEEEEEEERRRR::::::",this.user?.name);
       } else {
         this.user = null;
       }

@@ -16,6 +16,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
                       imports: [FormsModule,ReactiveFormsModule,IonAvatar, IonText, IonItem, IonRow, IonCol, IonInput, IonButton, IonGrid, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel]
                     })
   export class PostProfilePage  {
+    
+response ="";
+    userProfile!: UserLogin;
+    user = signal<Post|null>(null);
     #http = inject(HttpClient);
     // Actualizar el avatar del usuario
 updateAvatar(data: {  avatar: string}): Observable<any> {
@@ -25,6 +29,26 @@ updateAvatar(data: {  avatar: string}): Observable<any> {
 
   return this.#http.put('users/me/avatar', data);
 }
+ionwillenter(){
+  this.#authService.getProfile().subscribe({
+    next: (response: any) => {
+      // Asignación directa de las propiedades
+      this.name = response.name;
+      this.email = response.email;
+      this.avatarUrl = response.avatar;
+
+      // Mostrar en la consola para verificar que los valores están correctos
+      console.log("Nombre:", this.name);
+      console.log("Email:", this.email);
+      console.log("Avatar URL:", this.avatarUrl);
+    },
+    error: (error) => {
+      console.error("Error al cargar el perfil:", error);
+    }
+  });
+}
+
+
   changeUserPassword(): void {
   const data = {
     
@@ -80,7 +104,7 @@ changePassword(data: {  password: string }): Observable<any> {
 
     #postsService = inject(PostsService);
     #authService = inject(AuthService); 
-    userProfile: any;
+    
     name: any;
     email: any;
     avatarUrl: any;
@@ -96,18 +120,14 @@ coordinates: any;
 
     loadUserProfile(): void {
       this.#authService.getProfile().subscribe({
-        next: (response: any) => { // Cambio aquí para aceptar cualquier tipo
-          console.log("Respuesta completa de profile:", response);
-          this.userProfile = response.user; // Accede a través de la propiedad 'user'
-          this.name = response.user.name; // Ahora sí, accedemos a 'name'
-          this.email = response.user.email; // Y aquí accedemos a 'email'
+        next: (response: any) => {
+          this.userProfile = response.user;
+          this.name = response.user.name;
+          this.email = response.user.email;
           this.avatarUrl = response.user.avatar;
-          console.log("TU NOMBRE : ", this.name);
-          console.log("TU EMAIL : ", this.email);
-          console.log("URL del avatar:", this.avatarUrl);
-          console.log("ESTE ES TU USUARIOOOOOO   : ",response.user);
+          // Ahora puedes usar 'name', 'email', 'avatarUrl' en tu HTML
         },
-        error: (error) => console.error('Error obtaining user profile:', error),
+        error: (error) => console.error('Error obtaining user profile:', error)
       });
     }
     
