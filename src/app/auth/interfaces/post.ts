@@ -4,7 +4,7 @@ export interface Post {
 imageUrl: any;
 price: string|number;
 creator?: any;
-  
+totalDislikes: number; 
   totalLikes: any;
   id?: number;
   title?: string;
@@ -15,6 +15,8 @@ creator?: any;
   likes: boolean | null;
   lat?: number; // Opcional, para la geolocalización
   lng?: number; // Opcional, para la geolocalización
+  userLike?: boolean; // Nuevo: indica si el usuario ha dado like
+  userDislike?: boolean; // Nuevo: indica si el usuario ha dado dislike
 }
 export interface Publicaciones extends Post {
   id?: number;
@@ -29,4 +31,5 @@ export interface Publicaciones extends Post {
   lng?: number; // Opcional, para la geolocalización
   likes: boolean | null;
   mine?: boolean;
+  totalDislikes: number; 
 }

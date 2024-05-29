@@ -26,4 +26,14 @@ export const routes: Routes = [
       import('src/app/profile/profile.routes').then((m) => m.profileRoutes),
     canActivate: [loginActivateGuard], //en las rutas se incorporan los guardianes
   },
+  {
+    path: 'user/:id',
+    loadComponent: () =>
+      import('src/app/user-profile/user-profile.component').then((m) => m.UserProfileComponent),
+    canActivate: [loginActivateGuard], //en las rutas se incorporan los guardianes
+  },
+  {
+    path: '**',
+    redirectTo: 'auth/login',
+  },
 ];

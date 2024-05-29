@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/auth/interfaces/user';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { Publicaciones } from './auth/interfaces/post';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 export class AppComponent {
   user: User | null = null;
   #nav = inject(NavController);
-
+  #navController = inject(NavController);
   #authService = inject(AuthService);
   #platform = inject(Platform);
 
@@ -71,4 +72,8 @@ export class AppComponent {
     await this.#authService.logout();
     this.#nav.navigateRoot(['/auth/login']);
   }
+  loadUserProfile(user: User) {
+    this.#nav.navigateForward(['/profile', user.id]);
+  }
+  
 }

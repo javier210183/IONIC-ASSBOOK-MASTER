@@ -13,7 +13,7 @@ import { Comment } from 'src/app/auth/interfaces/comment';
 })
 export class PostCommentsPage {
   @Input() id!: number;
-  comments!: Comment[];
+  comments: Comment[] = [];
   resumeSub!: Subscription;
 
   #alertCtrl = inject(AlertController);
@@ -23,9 +23,9 @@ export class PostCommentsPage {
 
   ionViewWillEnter() {
     this.loadComments();
-    // If the app comes back from being paused, reload comments
+    
     this.resumeSub = this.#platform.resume.subscribe(
-      () => this.loadComments() // Needs NgZone because Angular doesn't detect this event
+      () => this.loadComments() 
     );
   }
 
@@ -35,15 +35,14 @@ export class PostCommentsPage {
 
   loadComments(refresher?: IonRefresher) {
     this.#postsService.getComments(this.id).subscribe((comments) => {
-      this.#ngZone.run(() => comments = comments);                                  //PORQUE NO PUEDO PONER THIS.COMMENTS?
-
+      this.#ngZone.run(() => this.comments = comments); // Corrección aquí
       refresher?.complete();
     });
   }
 
   async addComment() {
     const alert = await this.#alertCtrl.create({
-      header: 'New commment',
+      header: 'New comment',
       inputs: [
         {
           name: 'comment',

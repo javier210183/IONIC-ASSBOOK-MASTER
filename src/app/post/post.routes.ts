@@ -30,4 +30,13 @@ export const postsRoutes: Routes = [
         (m) => m.PostProfilePage
       ),
   },
+  {
+    path: 'edit/:id',
+    loadComponent: () => import('src/app/posts-edit-form/posts-edit-form.component').then((m) => m.PostsEditFormComponent),
+  },
+  {
+    path: 'user/:id',
+    loadComponent: () =>
+      import('src/app/user-profile/user-profile.component').then((m) => m.UserProfileComponent),
+  }
 ];

@@ -3,6 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { Observable, catchError, from, map, of, switchMap, throwError } from 'rxjs';
 import { User, UserLogin } from '../interfaces/user';
+import { UserResponse } from '../interfaces/responses';
 
 @Injectable({
   providedIn: 'root'
@@ -105,5 +106,19 @@ updateProfile(data: { name: string; email: string }): Observable<UserLogin> {
     console.log("VOY A ENVIAR EL DATA :",data);
     return this.#http.put('users/me/password', data);
   }
-  
+  getUserProfile(userId: number): Observable<User> {
+    console.log(`Fetching user profile for ID: ${userId}`);
+    return this.#http.get<UserResponse>(`users/${userId}`).pipe(
+      map(resp => {
+        console.log('User profile response:', resp);
+        return resp.user;
+      }),
+      catchError(error => {
+        console.error('Error fetching user profile:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }
+  
+

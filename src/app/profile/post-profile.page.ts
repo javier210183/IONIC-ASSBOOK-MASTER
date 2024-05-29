@@ -1,4 +1,4 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { Component, Input, OnInit, inject, signal } from '@angular/core';
   import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonContent, IonGrid, IonButton, IonInput, IonCol, IonRow, IonItem, IonText, IonAvatar, } from '@ionic/angular/standalone';
   import { Post } from 'src/app/auth/interfaces/post';
   import { PostsService } from 'src/app/post/services/post.service';
@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
                       standalone: true,
                       imports: [FormsModule,ReactiveFormsModule,IonAvatar, IonText, IonItem, IonRow, IonCol, IonInput, IonButton, IonGrid, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel]
                     })
-  export class PostProfilePage  {
+  export class PostProfilePage implements OnInit {
     
 response ="";
     userProfile!: UserLogin;
@@ -116,6 +116,10 @@ newPassword: any;
 coordinates: any;
 
     constructor() { }
+    ngOnInit() {
+      this.ionwillenter();
+    }
+    
     
 
     loadUserProfile(): void {
@@ -142,6 +146,14 @@ coordinates: any;
         },
         error: (error) => console.error('Error updating profile', error)
       });
+    }
+    
+    toggleEditProfileForm(): void {
+      this.showEditProfileForm = !this.showEditProfileForm;
+    }
+    
+    toggleEditPasswordForm(): void {
+      this.showEditPasswordForm = !this.showEditPasswordForm;
     }
     
   }

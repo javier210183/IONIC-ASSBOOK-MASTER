@@ -62,7 +62,8 @@ export class PostFormPage {
     mood: 0,
     likes: null,
     imageUrl: undefined,
-    price: ''
+    price: '',
+    totalDislikes: 0,
   };
 
   #postService = inject(PostsService);
