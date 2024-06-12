@@ -7,6 +7,7 @@ import { TokenResponse, UserResponse } from '../interfaces/responses';
 import { Geolocation } from '@capacitor/geolocation';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
