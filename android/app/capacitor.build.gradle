@@ -11,7 +11,10 @@ apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':capacitor-app')
     implementation project(':capacitor-camera')
+<<<<<<< HEAD
     implementation project(':capacitor-geolocation')
+=======
+>>>>>>> fb2cc0b25c51cd745896007fa5f909c56c9e11f1
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-preferences')
