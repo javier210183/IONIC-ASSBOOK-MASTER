@@ -11,7 +11,7 @@
         <ion-input type="email" name="email" label="Email" labelPlacement="floating" required email [(ngModel)]="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" name="password"  label="Password" labelPlacement="floating" required [(ngModel)]="password"></ion-input>
+        <ion-input type="password" name="password" label="Password" labelPlacement="floating" required [(ngModel)]="password"></ion-input>
       </ion-item>
     </ion-list>
     <ion-grid>
@@ -27,6 +27,26 @@
             <ion-icon name="document-text" slot="start"></ion-icon>
             Register
           </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div appGoogleLogin class="btn"></div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button
+            appFbLogin
+            [scopes]="['email', 'public_profile']"
+            class="btn btn-primary"
+            (loginOk)="loggedFacebook($event)"
+            (loginError)="showError($event)"
+            style="width: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; background-color: #3b5998; color: white; border: none; border-radius: 5px;"
+          >
+            <ion-icon name="logo-facebook" slot="start"></ion-icon>
+            Login con Facebook
+          </button>
         </ion-col>
       </ion-row>
     </ion-grid>

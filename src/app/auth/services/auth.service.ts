@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { Observable, catchError, from, map, of, switchMap, throwError } from 'rxjs';
-import { User, UserLogin } from '../interfaces/user';
-import { UserResponse } from '../interfaces/responses';
+import { TokenLogin, User, UserLogin, iLogin } from '../interfaces/user';
+import { TokenResponse, UserResponse } from '../interfaces/responses';
+import { Geolocation } from '@capacitor/geolocation';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,29 +19,41 @@ export class AuthService {
     return this.#logged.asReadonly();
   }
 
-  login(
-    email: string,
-    password: string,
-    firebaseToken?: string // For push notifications
-  ): Observable<void> {
-    return this.#http
-      .post<{ accessToken: string }>('auth/login', {
-        email,
-        password,
-        firebaseToken,
-      })
-      .pipe(
-        // SwitchMap allows to return a value inside an Observable or a Promise (this case -> async)
-        switchMap(async (r) => {
-          try {
-            await Preferences.set({ key: 'fs-token', value: r.accessToken });
-            this.#logged.set(true);
-          } catch (e) {
-            throw new Error('Can\'t save authentication token in storage!');
-          }
+  login(data: iLogin): Observable<void> {
+    console.log("AQUI ESTA TU DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data);
+    return this.#http.post<TokenResponse>('auth/login', data).pipe(
+      switchMap((r) => from(Preferences.set({ key: 'fs-token', value: r.accessToken })).pipe(
+        map(() => {
+          console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAA", r.accessToken);
+          this.#logged.set(true);
         })
-      );
+      ))
+    );
   }
+  loginGoogle(data: TokenLogin): Observable<void> {
+    console.log("AQUI ESTA TU DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data);
+    return this.#http.post<TokenResponse>('auth/google', data).pipe(
+      switchMap((r) => from(Preferences.set({ key: 'fs-token', value: r.accessToken })).pipe(
+        map(() => {
+          console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", r.accessToken);
+          localStorage.setItem("token", r.accessToken);
+          console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", localStorage.getItem("token"));
+          this.#logged.set(true);
+        })
+      ))
+    );
+  }
+  loginFacebook(data: TokenLogin): Observable<void> {
+    console.log("AQUI ESTA TU DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data);
+    return this.#http.post<TokenResponse>('auth/facebook', data).pipe(
+      map(r => {
+        localStorage.setItem("token", r.accessToken);
+        console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAA", localStorage.getItem("token"));
+        this.#logged.set(true);
+      })
+    );
+  }
+  
 
   register(data: UserLogin): Observable<UserLogin> {
     console.log("Datos enviados al servidor:", data);
