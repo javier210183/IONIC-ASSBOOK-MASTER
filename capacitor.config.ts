@@ -8,8 +8,15 @@ const config: CapacitorConfig = {
     androidScheme: 'https',
   },
   android: {
-    allowMixedContent: true
-  }
+    allowMixedContent: true,
+  },
+  plugins: {
+    GoogleAuth: {
+      scopes: ["profile", "email"],
+      serverClientId: "746820501392-oalflicqch2kuc12s8rclb5rf7b1fist.apps.googleusercontent.com",
+      forceCodeForRefreshToken: true,
+    },
+  },
 };
 
 export default config;

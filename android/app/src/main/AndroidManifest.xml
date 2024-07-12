@@ -1,17 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
   package="es.fullstackpro.ionic.assbook">
 
   <!-- Permissions -->
   <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-=======
-  >
->>>>>>> fb2cc0b25c51cd745896007fa5f909c56c9e11f1
 
   <application
     android:allowBackup="true"
@@ -45,14 +41,4 @@
         android:resource="@xml/file_paths" />
     </provider>
   </application>
-<<<<<<< HEAD
-=======
-
-  <!-- Permissions -->
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
->>>>>>> fb2cc0b25c51cd745896007fa5f909c56c9e11f1
 </manifest>
