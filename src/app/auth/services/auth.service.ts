@@ -21,35 +21,35 @@ export class AuthService {
   }
 
   login(data: iLogin): Observable<void> {
-    console.log("AQUI ESTA TU DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data);
+   // console.log("AQUI ESTA TU DATAAAAA", data);
     return this.#http.post<TokenResponse>('auth/login', data).pipe(
       switchMap((r) => from(Preferences.set({ key: 'fs-token', value: r.accessToken })).pipe(
         map(() => {
-          console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAA", r.accessToken);
+         // console.log("AQUI ESTA TU TOKEN ", r.accessToken);
           this.#logged.set(true);
         })
       ))
     );
   }
   loginGoogle(data: TokenLogin): Observable<void> {
-    console.log("AQUI ESTA TU DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data);
+    //console.log("AQUI ESTA TU DATA", data);
     return this.#http.post<TokenResponse>('auth/google', data).pipe(
       switchMap((r) => from(Preferences.set({ key: 'fs-token', value: r.accessToken })).pipe(
         map(() => {
-          console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", r.accessToken);
+          //console.log("AQUI ESTA TU TOKEN ", r.accessToken);
           localStorage.setItem("token", r.accessToken);
-          console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", localStorage.getItem("token"));
+          //console.log("AQUI ESTA TU TOKEN2", localStorage.getItem("token"));
           this.#logged.set(true);
         })
       ))
     );
   }
   loginFacebook(data: TokenLogin): Observable<void> {
-    console.log("AQUI ESTA TU DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data);
+   // console.log("AQUI ESTA TU DATA2", data);
     return this.#http.post<TokenResponse>('auth/facebook', data).pipe(
       map(r => {
         localStorage.setItem("token", r.accessToken);
-        console.log("AQUI ESTA TU TOKEN BASURAAAAAAAAAAAAAAAA", localStorage.getItem("token"));
+       // console.log("AQUI ESTA TU TOKEN2", localStorage.getItem("token"));
         this.#logged.set(true);
       })
     );
@@ -57,11 +57,11 @@ export class AuthService {
   
 
   register(data: UserLogin): Observable<UserLogin> {
-    console.log("Datos enviados al servidor:", data);
+    //console.log("Datos enviados al servidor:", data);
   
     return this.#http.post<UserLogin>('auth/register', data).pipe(
       map(response => {
-        console.log("Registro exitoso", response);
+        //console.log("Registro exitoso", response);
         return response;
       }),
       catchError(error => {
@@ -102,7 +102,7 @@ export class AuthService {
 updateAvatar(data: {  avatar: string}): Observable<any> {
   //const formData = new FormData();
   //formData.append('avatar', file);
-  console.log("VOY A ENVIAR EL AVATA :", data);
+ // console.log("VOY A ENVIAR EL AVATAR :", data);
 
   return this.#http.put('users/me/avatar', data);
 }
@@ -118,18 +118,18 @@ updateProfile(data: { name: string; email: string }): Observable<UserLogin> {
       .pipe(map((r) => r.user));
   }
   changePassword(data: {  password: string }): Observable<any> {
-    console.log("VOY A ENVIAR EL DATA :",data);
+    //console.log("VOY A ENVIAR EL DATA :",data);
     return this.#http.put('users/me/password', data);
   }
   getUserProfile(userId: number): Observable<User> {
-    console.log(`Fetching user profile for ID: ${userId}`);
+    //console.log(`Fetching user profile for ID: ${userId}`);
     return this.#http.get<UserResponse>(`users/${userId}`).pipe(
       map(resp => {
-        console.log('User profile response:', resp);
+       // console.log('User profile response:', resp);
         return resp.user;
       }),
       catchError(error => {
-        console.error('Error fetching user profile:', error);
+       // console.error('Error fetching user profile:', error);
         return throwError(() => error);
       })
     );

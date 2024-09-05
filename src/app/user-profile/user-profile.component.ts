@@ -26,10 +26,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadUserProfile(userId: number) {
-    console.log(`Loading user profile for ID: ${userId}`);
+   // console.log(`Loading user profile for ID: ${userId}`);
     this.#authService.getUserProfile(userId).subscribe({
       next: (user) => {
-        console.log('Loaded user:', user);
+       // console.log('Loaded user:', user);
         this.user = user;
       },
       error: (err) => {

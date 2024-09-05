@@ -33,7 +33,7 @@ export class LoginPage implements OnInit, OnDestroy {
   async ngOnInit() {
     this.credentialsSub = this.#loadGoogle.credential$.subscribe(
       resp => {
-        console.log(resp.credential); // Envio al backend
+        //console.log(resp.credential); // Envio al backend
         this.#authService.loginGoogle({ token: resp.credential }).subscribe({
           next: () => {
             this.#navCtrl.navigateRoot(['/post']);
@@ -57,7 +57,7 @@ export class LoginPage implements OnInit, OnDestroy {
     const token = resp.authResponse.accessToken ?? '';
     if (token) {
       // Enviar al servidor
-      console.log(token);
+      //console.log(token);
       this.#authService.loginFacebook({ token } as TokenLogin).subscribe({
         next: () => {
           this.#navCtrl.navigateRoot(['/post']);
@@ -78,7 +78,7 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   showError(error: any) {
-    console.error(error);
+   // console.error(error);
   }
 
   ngOnDestroy(): void {
@@ -96,7 +96,7 @@ export class LoginPage implements OnInit, OnDestroy {
           longitud: position.coords.longitude,
         };
 
-        console.log("Intentando iniciar sesión con:", loginData);
+       // console.log("Intentando iniciar sesión con:", loginData);
 
         this.#authService.login(loginData).subscribe({
           next: () => {
@@ -116,7 +116,7 @@ export class LoginPage implements OnInit, OnDestroy {
         throw new Error('Unable to get current location coordinates.');
       }
     } catch (error) {
-      console.error('Error getting location', error);
+      //console.error('Error getting location', error);
       const alert = await this.#alertCtrl.create({
         header: 'Location error',
         message: 'Unable to get current location.',
